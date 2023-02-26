@@ -20,6 +20,7 @@ if(navClose){
         navMenu.classList.remove('show-menu')
     })
 }
+
 /*=============== REMOVE MENU MOBILE ===============*/
 
 const navLink = document.querySelectorAll('.nav__link');
@@ -32,20 +33,33 @@ const linkAction = () =>{
 navLink.forEach(n => n.addEventListener('click', linkAction))
 
 /*--=============== CIRCULAR PROGRESS SKILLS ===============*/
+
 let progress = document.querySelectorAll('.progress');
 let progress_text = document.querySelectorAll('.data-progress');
-progress.forEach((pro) => {
-  let percentage = pro.getAttribute('data-value');
-  let color = pro.getAttribute('data-stroke');
-  let radius = pro.r.baseVal.value;
-  let circumference = radius * 2 * Math.PI;
-  let stroke = circumference - (circumference * percentage) / 100;
-  console.log(circumference)
-  pro.style.setProperty('--stroke-dashoffset', stroke);
-  pro.style.setProperty('--stroke-dasharray', circumference);
-  pro.style.setProperty('--stroke', color);
-  pro.style.setProperty('--animation-time', `${percentage * 20}ms`);
-});
+const progressBar = document.querySelector('.progress-bar');
+const progressBarPosition = progressBar.offsetTop;
+
+const scrollProgress = () => {
+  console.log("hi")
+  const scrollPosition = window.scrollY + window.innerHeight;
+  if (scrollPosition >= progressBarPosition) {
+    progress.forEach((pro) => {
+      let percentage = pro.getAttribute('data-value');
+      let color = pro.getAttribute('data-stroke');
+      let radius = pro.r.baseVal.value;
+      let circumference = radius * 2 * Math.PI;
+      let stroke = circumference - (circumference * percentage) / 100;
+      pro.style.setProperty('--stroke-dashoffset', stroke);
+      pro.style.setProperty('--stroke-dasharray', circumference);
+      pro.style.setProperty('--stroke', color);
+      pro.style.setProperty('--animation-time', `${percentage * 20}ms`);
+      pro.classList.add('animate')
+    });
+  }
+};
+
+window.addEventListener('scroll', scrollProgress)
+
 progress_text.forEach((text) => {
   let data = text.getAttribute('data-value');
   let progress_value = 0;
@@ -80,9 +94,6 @@ let swiperProjects = new Swiper(".projects__container", {
     mousewheel: true,
     keyboard: true,
   });
-
-
-/*=============== SWIPER TESTIMONIAL ===============*/
 
 
 /*=============== EMAIL JS ===============*/
@@ -204,18 +215,17 @@ const scrollHeader = () =>{
 window.addEventListener('scroll', scrollHeader)
 
 /*=============== SCROLL REVEAL ANIMATION ===============*/
-
 const sr = ScrollReveal({
   origin: 'top',
   distance: '60px',
   duration: 2500,
   delay: 400,
+  afterReveal: function(){},
   // reset: true /*Animation repeat*/ 
 })
 
 sr.reveal('.home__data, .projects__container, .footer__container');
 sr.reveal('.home__info', {delay: 600, origin: 'bottom', interval: 100});
 sr.reveal('.skills__content:nth-child(1), .contact__content:nth-child(1)', {origin: 'left'});
-sr.reveal('.skills__content:nth-child(2), .contact__content:nth-child(2)', {origin: 'right'});
+sr.reveal('.skills__content:nth-child(2), .contact__content:nth-child(2)', {origin: 'right'}, {afterReveal: scrollProgress() });
 sr.reveal('.qualification__content, .services__card', {interval: 100});
-

@@ -497,6 +497,8 @@ body.dark-theme {
   position: relative;
 }
 
+/* ================ Skills 2 Progress =================== */
+
 svg {
   width: 100px;
   height: 100px;
@@ -517,15 +519,23 @@ circle:nth-child(1) {
   stroke: var(--stroke);
   stroke-dasharray: var(--stroke-dasharray);
   stroke-dashoffset: var(--stroke-dasharray);
-  animation: progress var(--animation-time) ease-in forwards;
   --webkit-stroke-position: inside;
-  stroke-linecap: round;  
+  stroke-linecap: round;
 }
+
+.animate {
+  animation-name: progress;
+  animation-duration: 2s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
 @keyframes progress {
   to {
     stroke-dashoffset: var(--stroke-dashoffset);
   }
 }
+
 .data-progress {
   font-family: var(--title-font);
   position: absolute;
@@ -739,11 +749,6 @@ circle:nth-child(1) {
 .projects__container .swiper-pagination-bullet-active{
   background-color: var(--title-color);
 }
-
-/*=============== TESTIMONIAL ===============*/
-
-
-/* Swiper class */
 
 
 /*=============== CONTACT ===============*/
@@ -1126,7 +1131,7 @@ circle:nth-child(1) {
   }
   .nav__list{
     display: flex;
-    column-gap: 3rem;
+    column-gap: 2.5rem;
   }
   .nav__link{
     font-size: var(--normal-font-size);
