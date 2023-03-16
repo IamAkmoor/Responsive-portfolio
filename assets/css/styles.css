@@ -675,6 +675,7 @@ circle:nth-child(1) {
 
 .projects__img{
   width: 250px;
+  height: 160px;
   border-radius: .75rem;
   margin-bottom: 1.25rem;
 }
@@ -1307,8 +1308,10 @@ circle:nth-child(1) {
     margin-bottom: 6.5rem;
   }
   .projects__img{
-    width: 320px;
+    width: 350px;
+    height: 210px;
     margin-bottom: 2rem;
+
   }
 
   .contact__title{
